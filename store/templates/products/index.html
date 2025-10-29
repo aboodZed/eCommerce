@@ -1,0 +1,32 @@
+{% extends 'base.html' %} {% block title %} products {% endblock %}
+{% block content %}
+<div class="row">
+	<h1 class="col-4">products</h1>
+	<div class="col-6"></div>
+	<a class="col-2 mt-3" href="{% url 'product.create' %}"> <button class="btn btn-primary mb-3">
+			Create new Product</button></a>
+</div>
+<table class="table">
+	<thead>
+		<th>id</th>
+		<th>name</th>
+		<th>details</th>
+		<th>Qty</th>
+		<th>price</th>
+		<th>Operations</th>
+	</thead>
+	{% for p in products %}
+	<tr>
+		<td>{{ p.id }}</td>
+		<td>{{ p.name }}</td>
+		<td>{{ p.details }}</td>
+		<td>{{ p.qty }}</td>
+		<td>{{ p.price }}</td>
+		<td>
+			<a href="{% url 'product.show' p.id %}"> <button class="btn btn-success">Show</button> </a>
+		</td>
+	</tr>
+	{% endfor %}
+</table>
+
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'base.html' %} {% block title %} Product {% endblock %}
+{% block content %}
+
+<div class="row">
+    <h1 class="col-4">Product</h1>
+    <h1 class="col-6"></h1>
+    <div class="col-2 mt-3">
+        {% if user.is_staff %}
+        <a href="{% url 'product.edit' product.id %}"> <button class="btn btn-warning">Edit</button> </a>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProductModel">
+            Delete
+        </button>
+        {% endif %}
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <td>Name</td>
+        <td>{{ product.name }}</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Details</td>details
+        <td>{{ product.details }}</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>Qty</td>
+        <td>{{ product.qty }}</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>Price</td>
+        <td>{{ product.price }}</td>
+        <td></td>
+    </tr>
+    <tr>
+        <form method="post" action="{% url 'cart.create' %}">
+            {% csrf_token %}
+            <td>Add to cart</td>
+            <td><input type="hidden" name="product" value="{{ product.id }} ">
+                <input class="form-control" type="number" name="qty" id="qty" required>
+            <td><button class="btn btn-primary">Add to cart</button></td>
+            </td>
+        </form>
+    </tr>
+</table>
+
+<div class="modal fade" id="deleteProductModel" tabindex="-1" aria-labelledby="deleteProductModelLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><strong>Delete the product</strong></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete it !!!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form method="POST" action="{% url 'product.delete' product.id %}">
+                    {% csrf_token %}
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

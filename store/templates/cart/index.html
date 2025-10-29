@@ -1,0 +1,63 @@
+{% extends 'base.html' %} {% block title %} Cart {% endblock %}
+{% block content %}
+<h1>Cart</h1>
+
+<form action="{% url 'order.create' %}" method="post">
+    {% csrf_token %}
+    <table class="table">
+        <thead>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+            <th>Select</th>
+            <th>Operations</th>
+        </thead>
+        {% for item in carts %}
+        <tr>
+            <td>{{ item.product.name }}</td>
+            <td>{{ item.qty }}</td>
+            <td>{{ item.product.price }} $</td>
+            <td>{{ item.total }} $</td>
+            <td>
+                <input class="form-check" type="checkbox" name="selected" id="selected" value="{{ item.id }}">
+            </td>
+            <td>
+                <form method="POST" action="{% url 'cart.delete' item.id %}">
+                    {% csrf_token %}
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        <tfoot>
+            <td colspan="4">Make order</td>
+            <td>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newOrderModel">
+                    Order
+                </button>
+            </td>
+            <td></td>
+        </tfoot>
+    </table>
+
+    <div class="modal fade" id="newOrderModel" tabindex="-1" aria-labelledby="newOrderModelLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><strong>New order</strong></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to make the order !!!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-primary">Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
