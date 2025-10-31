@@ -4,7 +4,7 @@ from django.db import models
 
 class Product(models.Model):
     id = models.IntegerField(primary_key=True, auto_created=True, unique=True, editable=False)
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE, default=1)
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     details = models.TextField()
     qty = models.IntegerField(default=0)

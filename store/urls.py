@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views as view
+from tags.views import index as tag_index
 urlpatterns = [
     path('', view.index, name='store.index'),
     path('show/<int:id>/', view.show, name='product.show'),
@@ -16,4 +17,6 @@ urlpatterns = [
     path('order/', view.order_index, name='order.index'),
     path('order/show/<int:id>/', view.order_show, name='order.show'),
     path('order.create/', view.order_create, name='order.create'),
+
+    path('tag/', tag_index, name='tag.index'),
 ]

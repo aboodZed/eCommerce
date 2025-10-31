@@ -5,7 +5,7 @@
     <h1 class="col-4">Product</h1>
     <h1 class="col-6"></h1>
     <div class="col-2 mt-3">
-        {% if user.is_staff %}
+        {% if user == product.user %}
         <a href="{% url 'product.edit' product.id %}"> <button class="btn btn-warning">Edit</button> </a>
         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProductModel">
             Delete
